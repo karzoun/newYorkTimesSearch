@@ -15,11 +15,42 @@ function runQuery(numArticles, queryURL) {
 
     $.ajax({ url: queryURL, method: 'GET' })
         .done(function(NYTData) {
+
+            $('#wellSection').empty()
+            for (var i = 0; i < NYTData.response.docs.length; i++) {
+                console.log(NYTData.response.docs[i].headline.main)
+                console.log(NYTData.response.docs[i].section_name)
+                console.log(NYTData.response.docs[i].pub_date)
+                console.log(NYTData.response.docs[i].byline.original)
+                console.log(NYTData.response.docs[i].web_url)
+
+                var wellSection = $('<div>')
+                wellSection.addClass('well')
+                wellSection.attr('id', 'articleWell-' + i)
+                $('#wellSection').append(wellSection)
+
+                $('#articleWell-' + i).append('<h3>' + NYTData.response.docs[i].headline.main + '</h3>')
+                $('#articleWell-' + i).append('<h5>' + NYTData.response.docs[i].section_name + '</h5>')
+                $('#articleWell-' + i).append('<h5>' + NYTData.response.docs[i].pub_date + '</h5>')
+                $('#articleWell-' + i).append('<h5>' + NYTData.response.docs[i].byline.original + '</h5>')
+                $('#articleWell-' + i).append('<a href=" +  NYTData.response.docs[i].web_url + ">' + NYTData.response.docs[i].web_url + '</a>')
+
+
+            }
+
+
+
+
             console.log(queryURL)
             console.log(numArticles)
             console.log(NYTData)
 
         })
+
+
+
+
+
 
 }
 
